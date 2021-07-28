@@ -10,28 +10,16 @@ import ImageList from "@material-ui/core/ImageList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(3),
-    maxWidth: 200,
+    margin: theme.spacing(1),
+    maxWidth: 170,
   },
   media: {
-    height: 20,
-    margin: 20,
-    padding: "20%",
     padding: theme.spacing(3),
+    height: 0,
+    paddingTop: "4%",
   },
-}));
-
-const useBoxStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-  },
-  imageList: {
-    height: 400,
-    transform: "translateZ(0)",
+  cardsList: {
+    height: 270,
   },
 }));
 
@@ -46,31 +34,43 @@ function Row(props) {
       </CardMedia>
       <CardContent>
         <Typography paragraph>
-          <br /> <h3>{row.name}:</h3>
+          <br />
+          <br />
+          <br />{" "}
+          <font face="Arial Black" size="4">
+            {row.name}
+          </font>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <h4>{row.description}</h4>
+          <font face="Times New Roman">
+            <big>{row.description}</big>
+          </font>
         </Typography>
       </CardContent>
-      <inherit align="zIndex">
-          &nbsp; created in:  
-          &nbsp; {new Intl.DateTimeFormat("en", {
-          year: "numeric",
-          month: "short",
-          day: "2-digit",
-        }).format(new Date(row.created))}
-      </inherit>
+      <div align="right">
+        <font face="Georgia">
+          <small>
+            &nbsp; created in &nbsp; <br />
+            &nbsp;{" "}
+            {new Intl.DateTimeFormat("en", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit",
+            }).format(new Date(row.created))}
+          </small>
+        </font>
+      </div>
     </Card>
   );
 }
 
 export default function ShopsCards({ items }) {
-  const classes = useBoxStyles();
+  const classes = useStyles();
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        <ImageList className={classes.imageList} cols={2.5}>
-          <Grid container item xs={12} spacing={2}>
+      <div>
+        <ImageList className={classes.cardsList} cols={2.5}>
+          <Grid container item xs={12} spacing={3}>
             {items.map((row) => (
               <Row key={row.name} row={row} />
             ))}
